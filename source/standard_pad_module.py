@@ -7,13 +7,12 @@ wdir = Path.cwd()
 # lijst met variable namen om naar de paden te verwijzen
 pad_naam_lijst = ["pad_sum",
                   "pad_tmp",
-
                   "verticaal",
-                  "horizontaal"
+                  "horizontaal",
                   "pad_VDP_map",
                   "pad_file_in",
                   "pad_naar_vdps"]
-
+print(pad_naam_lijst)
 # lijst met alle te gebruiken directories
 dir_names_lijst = ["summary",
                    "tmp",

@@ -6,6 +6,8 @@ from pathlib import Path
 import PySimpleGUI as sg
 
 from source.standard_pad_module import cleaner, dir_maak_comp_lijst
+from source.functies_mes import read_out_4,wikkel_4_baans_tc,read_out_6,wikkel_6_baans_tc
+from source.rol_soorten import rhein_voorbereiden
 
 import sys
 
@@ -48,9 +50,9 @@ else:
     ordernummer = pad.stem
 
     file_in.tail()
-
-    aantal_banen = 4  # int(input("aantal_banen: >")) ##tijdelijk
-    aantal_per_lijst = 4
+    mes = 6
+    aantal_banen = 6*6  # int(input("aantal_banen: >")) ##tijdelijk
+    aantal_per_lijst = mes
 
     totaal = file_in.aantal.sum()
     print(totaal)
@@ -211,82 +213,47 @@ else:
         begin += aantal_per_lijst
         eind += aantal_per_lijst
 
+    if mes == 4:
+
+        read_out_4(gesplitste_lijst, ordernummer)
+
+        # leegmaken vdps
+        for file in vdp_csv:
+            naam = f'vdps/{file}'
+            if os.path.exists(naam):
+                os.remove(naam)
+            else:
+                print("no files in dir vdps")
+
+        # os.remove("lijst_in.csv")
+
+
+        VDP_final = [x for x in os.listdir("VDP_map") if x.endswith(".csv")]
+        print(VDP_final)
+
+        wikkel_4_baans_tc(VDP_final, pad, Etiketten_Y, inloop)
+
+    elif mes == 6:
+
+        read_out_6(gesplitste_lijst, ordernummer)
+
+        # leegmaken vdps
+        for file in vdp_csv:
+            naam = f'vdps/{file}'
+            if os.path.exists(naam):
+                os.remove(naam)
+            else:
+                print("no files in dir vdps")
+
+        os.remove("lijst_in.csv")
+
+        VDP_final = [x for x in os.listdir("VDP_map") if x.endswith(".csv")]
+        print(VDP_final)
+
+        wikkel_6_baans_tc(VDP_final, pad, Etiketten_Y, inloop)
 
 
 
-    def read_out_4(lissst, ordernum):
-        """builds  and concats 4files over axis 1"""
-        for index in range((len(lissst))):
-            print(index)
-            a = lissst[index][0]
-            b = lissst[index][1]
-            c = lissst[index][2]
-            d = lissst[index][3]
-
-            color_1 = f'VDP_{index + 1}'
-            color_2 = f'{index}b'
-
-            file_1 = pd.read_csv(f"vdps/{a}", ";")
-            file_2 = pd.read_csv(f"vdps/{b}", ";")
-
-            file_3 = pd.read_csv(f"vdps/{c}", ";")
-            file_4 = pd.read_csv(f"vdps/{d}", ";")
-
-            samengevoeg_4 = pd.concat([file_1, file_2, file_3, file_4], axis=1)
-
-            samengevoeg_4.columns = ["barcode_1", "omschrijving_1", "pdf_1", "barcode_2", "omschrijving_2", "pdf_2",
-                                     "barcode_3", "omschrijving_3", "pdf_3", "barcode_4", "omschrijving_4", "pdf_4"]
-
-            samengevoeg_4.fillna(
-                {'pdf_1': "stans.pdf", 'pdf_2': "stans.pdf", 'pdf_3': "stans.pdf", 'pdf_4': "stans.pdf"},
-                inplace=True)
-
-            samengevoeg_4.to_csv(f"VDP_map/{ordernum}_{color_1}.csv", ";")
-
-
-    read_out_4(gesplitste_lijst, ordernummer)
-
-    # leegmaken vdps
-    for file in vdp_csv:
-        naam = f'vdps/{file}'
-        if os.path.exists(naam):
-            os.remove(naam)
-        else:
-            print("no files in dir vdps")
-
-    os.remove("lijst_in.csv")
-
-
-    def wikkel_4_baans_tc(input_vdp_lijst):
-        """last step voor VDP adding in en uitloop"""
-
-        for index in range(len(input_vdp_lijst)):
-            file_naam = f'{input_vdp_lijst[index]}'
-
-            with open(f'VDP_map/{file_naam}', "r", encoding="utf-8") as target:
-                readline = target.readlines()
-
-            with open(f'{pad.parent}/def_{file_naam}', "w", encoding="utf-8") as target:
-                target.writelines(
-                    "id;sluit_barcode_1;omschrijving_1;pdf_1;sluit_barcode_2;omschrijving_2;pdf_2;sluit_barcode_3;omschrijving_3;pdf_3;sluit_barcode_4;omschrijving_4;pdf_4\n")
-                # regel staat zo omdat ik kolomnaam id nog niet erin krijg
-
-                target.writelines(readline[1:data_uit_vdp])
-
-                target.writelines(
-                    "0;;;stans.pdf;;;stans.pdf;;;stans.pdf;;;stans.pdf\n" * (inloop - data_uit_vdp))  # inloop
-
-                target.writelines(readline[1:])  # bestand
-
-                target.writelines("0;;;stans.pdf;;;stans.pdf;;;stans.pdf;;;stans.pdf\n" * (inloop - 10))  # uitloop
-
-                target.writelines(readline[1:10])
-
-
-    VDP_final = [x for x in os.listdir("VDP_map") if x.endswith(".csv")]
-    print(VDP_final)
-
-    wikkel_4_baans_tc(VDP_final)
 
     summary = [x for x in os.listdir("tmp") if x.endswith(".csv")]
     summary = sorted(summary)
