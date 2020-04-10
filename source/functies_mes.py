@@ -190,6 +190,10 @@ def read_out_6(lissst, ordernum):
         samengevoeg_4.to_csv(f"VDP_map/{ordernum}_{color_1}.csv", ";")
 
 
+
+# todo onderste wikkel aanpassen
+
+
 def wikkel_6_baans_tc(input_vdp_lijst, padth, data_uit_vdp, inloop):
     """last step voor VDP adding in en uitloop"""
 

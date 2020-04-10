@@ -52,7 +52,7 @@ else:
 
     file_in.tail()
     mes = 6
-    aantal_banen = 6*6  # int(input("aantal_banen: >")) ##tijdelijk
+    aantal_banen = 6*4  # int(input("aantal_banen: >")) ##tijdelijk
     aantal_per_lijst = mes
     aantal = file_in.aantal.astype(int)
     totaal = aantal.sum()
@@ -139,12 +139,13 @@ else:
             with open(filenaam_uit, "a", encoding="utf-8") as fn:
                 # open a file to append the strings too
                 # print(f".;stans.pdf\n", end='', file=fn)
-
+                print(f";;stans.pdf\n" * stans_tussen, end="", file=fn)
                 print(f"{colorcode};{aantal} etiketten;leeg.pdf\n", end="", file=fn)
+                print(f";;stans.pdf\n" * stans_tussen, end="", file=fn)
 
                 print(f";;{beeld}\n" * int(aantal * oap + ee), end="", file=fn)
                 # print(f"{colorcode}, {int(aantal * oap)};leeg.pdf\n", end="", file=fn)
-
+                print(f";;stans.pdf\n" * stans_tussen, end="", file=fn)
                 print(f"{colorcode};{aantal} etiketten;leeg.pdf\n", end="", file=fn)
                 print(f";;stans.pdf\n" * stans_tussen, end="", file=fn)
 
@@ -154,14 +155,14 @@ else:
 
         def print_4kols(omschrijving_sluit_1, sluit_barcode_1, aantal, beeld):
 
-
-
-            print(f"{omschrijving_sluit_1};{sluit_barcode_1};{aantal} etiketten;stans.pdf\n", end="", file=fn)
+            print(f";{int(123456789012)};;stans.pdf\n" * stans_tussen, end="", file=fn)
+            print(f"{omschrijving_sluit_1};{sluit_barcode_1};{aantal} etiketten;leeg.pdf\n", end="", file=fn)
+            print(f";{int(123456789012)};;stans.pdf\n" * stans_tussen, end="", file=fn)
 
             print(f";{int(123456789012)};;{beeld}" * int(aantal * oap + ee), end="", file=fn)
             # print(f"{colorcode}, {int(aantal * oap)};leeg.pdf\n", end="", file=fn)
-
-            print(f"{omschrijving_sluit_1};{sluit_barcode_1};{aantal} etiketten;stans.pdf\n", end="", file=fn)
+            print(f";{int(123456789012)};;stans.pdf\n" * stans_tussen, end="", file=fn)
+            print(f"{omschrijving_sluit_1};{sluit_barcode_1};{aantal} etiketten;leeg.pdf\n", end="", file=fn)
             print(f";{int(123456789012)};;stans.pdf\n" * stans_tussen, end="", file=fn)
 
 
@@ -305,8 +306,8 @@ else:
 
     cleaning_paden_met_Dir_lijst = [Path(wdir, dirnaam) for dirnaam in dir_names_lijst_to_be_cleaned]
 
-    # for file_pad in cleaning_paden_met_Dir_lijst:
-    #     cleaner(file_pad)
+    for file_pad in cleaning_paden_met_Dir_lijst:
+        cleaner(file_pad)
 
-    # for file_pad in cleaning_paden_met_Dir_lijst:
-    #     file_pad.rmdir()
+    for file_pad in cleaning_paden_met_Dir_lijst:
+        file_pad.rmdir()
