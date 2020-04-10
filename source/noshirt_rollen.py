@@ -47,15 +47,15 @@ else:
 
     # df = pd.read_csv("myfile.csv", delimiter=";", dtype="str")
 
-    file_in = pd.read_csv(fname, delimiter=";")
+    file_in = pd.read_csv(fname, delimiter=";", dtype="str")
     ordernummer = pad.stem
 
     file_in.tail()
     mes = 6
     aantal_banen = 6*6  # int(input("aantal_banen: >")) ##tijdelijk
     aantal_per_lijst = mes
-
-    totaal = file_in.aantal.sum()
+    aantal = file_in.aantal.astype(int)
+    totaal = aantal.sum()
     print(totaal)
     row = len(file_in)
     print(row)
@@ -76,12 +76,12 @@ else:
     be_LIJST = []
 
     for num in range(len(file_in)):
-        b = file_in.aantal.iloc[a:(num + 1)].sum()
+        b = aantal.iloc[a:(num + 1)].sum()
         # print(a, num)
         #     print(b)
 
         if num == (len(file_in) - 1):
-            c = file_in.aantal.iloc[a:num].sum()
+            c = aantal.iloc[a:num].sum()
             begin_eind_lijst.append([c, a, num + 1])
             be_LIJST.append([a, num + 1])
 
@@ -123,7 +123,7 @@ else:
         print(filenaam_uit)
         count += 1
 
-        trespa_lijst = pd.read_csv(file_Naam_In, ",", encoding="utf-8")
+        trespa_lijst = pd.read_csv(file_Naam_In, ",", encoding="utf-8", dtype="str")
         print(trespa_lijst[0:1])
 
         oap = overaantalpercentage = 1  # 1.02 = 2% overlevering
@@ -149,7 +149,23 @@ else:
                 print(f";;stans.pdf\n" * stans_tussen, end="", file=fn)
 
 
-        df = trespa_lijst[["Colorcode", "beeld", "aantal"]]
+        #"omschrijving_sluit_1", "sluit_barcode_1", "aantal_1", "beeld" kolommen
+
+
+        def print_4kols(omschrijving_sluit_1, sluit_barcode_1, aantal, beeld):
+
+
+
+            print(f"{omschrijving_sluit_1};{sluit_barcode_1};{aantal} etiketten;stans.pdf\n", end="", file=fn)
+
+            print(f";{int(123456789012)};;{beeld}" * int(aantal * oap + ee), end="", file=fn)
+            # print(f"{colorcode}, {int(aantal * oap)};leeg.pdf\n", end="", file=fn)
+
+            print(f"{omschrijving_sluit_1};{sluit_barcode_1};{aantal} etiketten;stans.pdf\n", end="", file=fn)
+            print(f";{int(123456789012)};;stans.pdf\n" * stans_tussen, end="", file=fn)
+
+
+        df = trespa_lijst[["omschrijving_sluit", "sluit_barcode", "aantal", "beeld"]]
         df.to_csv("lijst_in.csv", index=0)
 
         new_input_list = []
@@ -169,14 +185,16 @@ else:
 
         with open(filenaam_uit, "w", encoding="utf-8") as fn:
 
-            print("sluit_barcode;beeld1;pdf1", file=fn)
+            print("omschrijving_sluit;sluit_barcode;aantal;beeld", file=fn)
 
         with open(filenaam_uit, "a", encoding="utf-8") as fn:
             for _ in range(list_length - 1):
                 a = str(new_input_list[beg:eind][0][0])
                 b = str(new_input_list[beg:eind][0][1])
                 c = int(new_input_list[beg:eind][0][2])
-                print_noshirt_rolls(a, b, c)
+                d = str(new_input_list[beg:eind][0][3])
+
+                print_4kols(a, b, c, d)
 
                 beg += 1
                 eind += 1
