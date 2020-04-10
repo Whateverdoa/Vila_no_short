@@ -1,6 +1,47 @@
 import pandas as pd
 
 
+def file_splitter(file_in: pd.DataFrame, opb, afwijking):
+
+    aantal_files_in_datadrame_file_in = len(file_in)
+    a = 0
+
+    begin_eind_lijst = []
+    be_LIJST = []
+
+    for num in range(aantal_files_in_datadrame_file_in):
+        b = file_in.aantal.iloc[a:(num + 1)].sum()
+        # print(a, num)
+        #     print(b)
+
+        if num == (len(file_in) - 1):
+            c = file_in.aantal.iloc[a:num].sum()
+            begin_eind_lijst.append([c, a, num + 1])
+            be_LIJST.append([a, num + 1])
+
+            csv_naam = f'tmp/tmp{a:>{0}{4}}.csv'
+            print(csv_naam)
+            file_in.iloc[a:(num + 1)].to_csv(csv_naam)
+            print("einde")
+
+
+
+        elif b >= opb + afwijking:
+
+            csv_naam = f'tmp/tmp{a:>{0}{4}}.csv'
+            print(csv_naam)
+            file_in.iloc[a:(num + 1)].to_csv(csv_naam)
+
+            begin_eind_lijst.append([b, a, num])
+            be_LIJST.append([a, num + 1])
+            be_LIJST.append(f'[{a}:{num}]')
+            a = num + 1
+
+        continue
+
+    return begin_eind_lijst
+
+
 def read_out_4(lissst, ordernum):
     """builds  and concats 4files over axis 1"""
     for index in range((len(lissst))):
@@ -297,7 +338,7 @@ def wikkel_n_baans_tc(input_vdp_posix_lijst, etiketten_Y, in_loop, mes, pad_VDP_
     return inlooplijst
 
 
-#todo
+
 def kol_fill_na_dict_builder(mes=1):
     """{"pdf_1": "stans.pdf", "pdf_2": "stans.pdf"}"""
 

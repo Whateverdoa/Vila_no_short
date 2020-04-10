@@ -118,11 +118,16 @@ def rollen_maker(
 
     return csv_namen
 
+# testing and running defs
 
-inschiet_file = Path(
-    r"C:\Users\Dhr. Ten Hoonte\PycharmProjects\Werk_projekten\Vila_no_short\source\file_in\202011726_inschiet_met_rolnummer.csv"
-)
+inschiet_file = Path(paden_dict["pad_file_in"] /"202011726_inschiet_met_rolnummer.csv")
+
 destination = paden_dict["pad_tmp"]
 
 
 rollen_maker(inschiet_file, destination, 4, "tmp1")
+
+
+
+
+

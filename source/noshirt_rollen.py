@@ -1,15 +1,16 @@
 """ quick for 6 banen"""
 
-import pandas as pd
 import os
+import sys
 from pathlib import Path
+import pandas as pd
 import PySimpleGUI as sg
 
 from source.standard_pad_module import cleaner, dir_maak_comp_lijst
 from source.functies_mes import read_out_4,wikkel_4_baans_tc,read_out_6,wikkel_6_baans_tc
 from source.rol_soorten import rhein_voorbereiden
 
-import sys
+
 
 sg.ChangeLookAndFeel('GreenTan')
 
@@ -60,7 +61,7 @@ else:
     print(row)
     opb = ongeveer_per_baan = (totaal // aantal_banen)
     print(f'aantal rollen= {row}')
-    afwijking = -333  # mag niet kleiner zijn dan kleinste rol
+    afwijking = -250  # mag niet kleiner zijn dan kleinste rol
 
     stans_tussen = 1  # normaal waarde = 1 , geursamples is 30
 
@@ -286,8 +287,8 @@ else:
 
     cleaning_paden_met_Dir_lijst = [Path(wdir, dirnaam) for dirnaam in dir_names_lijst_to_be_cleaned]
 
-    for file_pad in cleaning_paden_met_Dir_lijst:
-        cleaner(file_pad)
+    # for file_pad in cleaning_paden_met_Dir_lijst:
+    #     cleaner(file_pad)
 
-    for file_pad in cleaning_paden_met_Dir_lijst:
-        file_pad.rmdir()
+    # for file_pad in cleaning_paden_met_Dir_lijst:
+    #     file_pad.rmdir()
