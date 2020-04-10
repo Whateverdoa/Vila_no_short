@@ -224,6 +224,7 @@ def wikkel_6_baans_tc(input_vdp_lijst, padth, data_uit_vdp, inloop):
 
             target.writelines(readline[1:10])
 
+# todo: deze?
 
 def kol_naam_lijst_builder(mes_waarde=1):
     kollomnaamlijst = []
