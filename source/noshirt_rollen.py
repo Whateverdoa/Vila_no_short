@@ -60,7 +60,7 @@ else:
     print(row)
     opb = ongeveer_per_baan = (totaal // aantal_banen)
     print(f'aantal rollen= {row}')
-    afwijking = 0  # mag niet kleiner zijn dan kleinste rol
+    afwijking = -333  # mag niet kleiner zijn dan kleinste rol
 
     stans_tussen = 1  # normaal waarde = 1 , geursamples is 30
 
