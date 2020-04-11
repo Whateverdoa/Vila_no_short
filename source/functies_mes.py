@@ -194,8 +194,9 @@ def read_out_6(lissst, ordernum):
 # todo onderste wikkel aanpassen
 
 
-def wikkel_6_baans_tc(input_vdp_lijst, padth, data_uit_vdp, inloop):
+def wikkel_6_baans_tc(input_vdp_lijst, padth, data_uit_vdp, inloop, mes):
     """last step voor VDP adding in en uitloop"""
+
 
     for index in range(len(input_vdp_lijst)):
         file_naam = f"{input_vdp_lijst[index]}"
@@ -212,14 +213,14 @@ def wikkel_6_baans_tc(input_vdp_lijst, padth, data_uit_vdp, inloop):
             target.writelines(readline[1:data_uit_vdp])
 
             target.writelines(
-                "0;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;stans.pdf;;;;stans.pdf\n"
+                "0;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf\n"
                 * (inloop - data_uit_vdp)
             )  # inloop
 
             target.writelines(readline[1:])  # bestand
 
             target.writelines(
-                "0;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;stans.pdf;;;;stans.pdf\n" * (inloop - 10)
+                "0;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf\n" * (inloop - 10)
             )  # uitloop
 
             target.writelines(readline[1:10])
