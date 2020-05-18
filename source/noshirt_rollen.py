@@ -47,12 +47,12 @@ else:
 
     # df = pd.read_csv("myfile.csv", delimiter=";", dtype="str")
 
-    file_in = pd.read_csv(fname, delimiter=";", dtype="str")
+    file_in = pd.read_csv(fname, delimiter=";",dtype="str")
     ordernummer = pad.stem
 
     file_in.tail()
-    mes = 6
-    aantal_banen = 6*4  # int(input("aantal_banen: >")) ##tijdelijk
+    mes = 4
+    aantal_banen = 4 # int(input("aantal_banen: >")) ##tijdelijk
     aantal_per_lijst = mes
     aantal = file_in.aantal.astype(int)
     totaal = aantal.sum()
@@ -61,7 +61,7 @@ else:
     print(row)
     opb = ongeveer_per_baan = (totaal // aantal_banen)
     print(f'aantal rollen= {row}')
-    afwijking = -250  # mag niet kleiner zijn dan kleinste rol
+    afwijking = 0  # mag niet kleiner zijn dan kleinste rol
 
     stans_tussen = 1  # normaal waarde = 1 , geursamples is 30
 
@@ -154,16 +154,16 @@ else:
 
 
         def print_4kols(omschrijving_sluit_1, sluit_barcode_1, aantal, beeld):
-
-            print(f";{int(123456789012)};;stans.pdf\n" * stans_tussen, end="", file=fn)
+            "sluit barcode is een ean8 hier, handiger is mischien weglaten en in eps template aanpassen"
+            print(f";{int(1234567)};;stans.pdf\n" * stans_tussen, end="", file=fn)
             print(f"{omschrijving_sluit_1};{sluit_barcode_1};{aantal} etiketten;leeg.pdf\n", end="", file=fn)
-            print(f";{int(123456789012)};;stans.pdf\n" * stans_tussen, end="", file=fn)
+            print(f";{int(1234567)};;stans.pdf\n" * stans_tussen, end="", file=fn)
 
-            print(f";{int(123456789012)};;{beeld}" * int(aantal * oap + ee), end="", file=fn)
+            print(f";{int(1234567)};;{beeld}" * int(aantal * oap + ee), end="", file=fn)
             # print(f"{colorcode}, {int(aantal * oap)};leeg.pdf\n", end="", file=fn)
-            print(f";{int(123456789012)};;stans.pdf\n" * stans_tussen, end="", file=fn)
+            print(f";{int(1234567)};;stans.pdf\n" * stans_tussen, end="", file=fn)
             print(f"{omschrijving_sluit_1};{sluit_barcode_1};{aantal} etiketten;leeg.pdf\n", end="", file=fn)
-            print(f";{int(123456789012)};;stans.pdf\n" * stans_tussen, end="", file=fn)
+            print(f";{int(1234567)};;stans.pdf\n" * stans_tussen, end="", file=fn)
 
 
         df = trespa_lijst[["omschrijving_sluit", "sluit_barcode", "aantal", "beeld"]]
@@ -270,7 +270,7 @@ else:
         VDP_final = [x for x in os.listdir("VDP_map") if x.endswith(".csv")]
         print(VDP_final)
 
-        wikkel_6_baans_tc(VDP_final, pad, Etiketten_Y, inloop)
+        wikkel_6_baans_tc(VDP_final, pad, Etiketten_Y, inloop, mes)
 
 
 
@@ -284,10 +284,10 @@ else:
     for naam in summary:
         df = f'df{count}'
         print(df)
-        df = pd.read_csv(f'tmp/{naam}', encoding="utf-8")
+        df = pd.read_csv(f'tmp/{naam}', encoding="utf-8", dtype="str")
         #     df2 = pd.DataFrame([[f'{ordernummer}_baan_{count+1}']], dtype="str")
-        df2 = pd.DataFrame([[f'{ordernummer}_baan_{count + 1} | {df.aantal.sum()} etiketten']], dtype="int")
-        print(df.aantal.sum())
+        df2 = pd.DataFrame([[f'{ordernummer}_baan_{count + 1} | {df.aantal.astype("int").sum()} etiketten']], dtype="str")
+        print(df.aantal.astype("int").sum())
         sum_lijst_vert.append(df2)
         sum_lijst_vert.append(df)
 

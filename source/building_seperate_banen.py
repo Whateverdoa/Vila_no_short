@@ -76,23 +76,6 @@ input_lijst_dataframe.to_csv("lijst_in.csv", index=0)
 
 new_input_list = []
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 with open("lijst_in.csv") as input:
     num = 0
     for line in input:

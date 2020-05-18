@@ -52,37 +52,41 @@ def read_out_4(lissst, ordernum):
         d = lissst[index][3]
 
         color_1 = f"VDP_{index + 1}"
-        color_2 = f"{index}b"
 
-        file_1 = pd.read_csv(f"vdps/{a}", ";")
-        file_2 = pd.read_csv(f"vdps/{b}", ";")
 
-        file_3 = pd.read_csv(f"vdps/{c}", ";")
-        file_4 = pd.read_csv(f"vdps/{d}", ";")
+        file_1 = pd.read_csv(f"vdps/{a}", ";", dtype="str")
+        file_2 = pd.read_csv(f"vdps/{b}", ";", dtype="str")
+
+        file_3 = pd.read_csv(f"vdps/{c}", ";", dtype="str")
+        file_4 = pd.read_csv(f"vdps/{d}", ";", dtype="str")
 
         samengevoeg_4 = pd.concat([file_1, file_2, file_3, file_4], axis=1)
 
         samengevoeg_4.columns = [
-            "barcode_1",
             "omschrijving_1",
-            "pdf_1",
-            "barcode_2",
+            "barcode_1",
+            "aantal_1",
+            "beeld_1",
             "omschrijving_2",
-            "pdf_2",
-            "barcode_3",
+            "barcode_2",
+            "aantal_2",
+            "beeld_2",
             "omschrijving_3",
-            "pdf_3",
-            "barcode_4",
+            "barcode_3",
+            "aantal_3",
+            "beeld_3",
             "omschrijving_4",
-            "pdf_4",
+            "barcode_4",
+            "aantal_4",
+            "beeld_4"
         ]
 
         samengevoeg_4.fillna(
             {
-                "pdf_1": "stans.pdf",
-                "pdf_2": "stans.pdf",
-                "pdf_3": "stans.pdf",
-                "pdf_4": "stans.pdf",
+                "beeld_1": "stans.pdf",
+                "beeld_2": "stans.pdf",
+                "beeld_3": "stans.pdf",
+                "beeld_4": "stans.pdf",
             },
             inplace=True,
         )
@@ -101,21 +105,22 @@ def wikkel_4_baans_tc(input_vdp_lijst, padth, data_uit_vdp, inloop):
 
         with open(f"{padth.parent}/def_{file_naam}", "w", encoding="utf-8") as target:
             target.writelines(
-                "id;sluit_barcode_1;omschrijving_1;pdf_1;sluit_barcode_2;omschrijving_2;pdf_2;sluit_barcode_3;omschrijving_3;pdf_3;sluit_barcode_4;omschrijving_4;pdf_4\n"
+                "id;omschrijving_1;sluit_barcode_1;aantal_1;pdf_1;omschrijving_2;sluit_barcode_2;aantal_2;pdf_2;omschrijving_3;sluit_barcode_3;aantal_3;pdf_3;omschrijving_4;sluit_barcode_4;aantal_4;pdf_4\n"
             )
             # regel staat zo omdat ik kolomnaam id nog niet erin krijg
 
             target.writelines(readline[1:data_uit_vdp])
 
             target.writelines(
-                "0;;;stans.pdf;;;stans.pdf;;;stans.pdf;;;stans.pdf\n"
+                "0;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf\n"
                 * (inloop - data_uit_vdp)
             )  # inloop
 
             target.writelines(readline[1:])  # bestand
 
             target.writelines(
-                "0;;;stans.pdf;;;stans.pdf;;;stans.pdf;;;stans.pdf\n" * (inloop - 10)
+                "0;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf\n"
+                * (inloop - 10)
             )  # uitloop
 
             target.writelines(readline[1:10])
@@ -208,7 +213,7 @@ def wikkel_6_baans_tc(input_vdp_lijst, padth, data_uit_vdp, inloop, mes):
             target.writelines(
                 "id;omschrijving_1;sluit_barcode_1;aantal_1;pdf_1;omschrijving_2;sluit_barcode_2;aantal_2;pdf_2;omschrijving_3;sluit_barcode_3;aantal_3;pdf_3;omschrijving_4;sluit_barcode_4;aantal_4;pdf_4;omschrijving_5;sluit_barcode_5;aantal_5;pdf_5;omschrijving_6;sluit_barcode_6;aantal_6;pdf_6\n"
             )
-            # regel staat zo omdat ik kolomnaam id nog niet erin krijg
+            # regel staat zo omdat ik kolomnaam id nog niet erin krijg , dit is opgelost. moet hhet alleen nog overal gaan gebruiken.
 
             target.writelines(readline[1:data_uit_vdp])
 

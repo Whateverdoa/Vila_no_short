@@ -1,20 +1,8 @@
+""""eventually builds csv,s  from steps build only in  dataframes """
+
 import pandas as pd
 from pathlib import Path
 from source.standard_pad_module import *
-
-# noshort_rolls_met_4_kolommen = pd.read_csv(r"C:\Users\Dhr. Ten Hoonte\PycharmProjects\Werk_projekten\Vila_no_short\source\file_in\202011726_inschiet.csv", ";", dtype="str")
-# print(noshort_rolls_met_4_kolommen.head())
-
-
-# print(noshort_rolls_met_4_kolommen.columns.values)
-
-# omschrijving_sluit = noshort_rolls_met_4_kolommen.omschrijving_sluit[0]
-# sluit_barcode = noshort_rolls_met_4_kolommen.sluit_barcode[0]
-# beeld = noshort_rolls_met_4_kolommen.beeld[0]
-# aantal_etiketten = noshort_rolls_met_4_kolommen.aantal[0]
-#
-# rol1 = pd.DataFrame([(omschrijving_sluit, sluit_barcode, beeld, aantal_etiketten)] * int(aantal_etiketten), columns =[1, 2, 3, 4], dtype="str")
-
 
 def file_name_maker_met_pad(
     amount_of_rolls, posix_destination_pad, filename: "str", exp=".csv"
@@ -120,12 +108,12 @@ def rollen_maker(
 
 # testing and running defs
 
-inschiet_file = Path(paden_dict["pad_file_in"] /"202011726_inschiet_met_rolnummer.csv")
+inschiet_file = Path(paden_dict["pad_file_in"] /"2020_noshort_test.csv")
 
 destination = paden_dict["pad_tmp"]
 
 
-rollen_maker(inschiet_file, destination, 4, "tmp1")
+rollen_maker(inschiet_file, destination, 4, "noshorttest")
 
 
 

@@ -4,6 +4,7 @@ from pathlib import Path
 
 # working directory
 wdir = Path.cwd()
+
 # lijst met variable namen om naar de paden te verwijzen
 pad_naam_lijst = ["pad_sum",
                   "pad_tmp",
