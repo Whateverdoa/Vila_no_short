@@ -41,6 +41,7 @@ def test_kol_fill_na_dict_builder():
     assert namen == expected
 
 file= padvoortest.glob("*csv")
+print(file)
 
 def test_wikkel_n_baans():
 

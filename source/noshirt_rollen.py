@@ -6,16 +6,18 @@ from pathlib import Path
 import pandas as pd
 import PySimpleGUI as sg
 
-from source.standard_pad_module import cleaner, dir_maak_comp_lijst
+from source.standard_pad_module import cleaner, dir_maak_comp_lijst, wdir
 from source.functies_mes import read_out_4,wikkel_4_baans_tc,read_out_6,wikkel_6_baans_tc
 from source.rol_soorten import rhein_voorbereiden
+from samenvatingen import summary_tekst_file
 
 
 
 sg.ChangeLookAndFeel('GreenTan')
 
 if len(sys.argv) == 1:
-    fname = sg.popup_get_file('CSV name == ordernummer!!, click OK om door te gaan.')
+    fname = sg.popup_get_file('LEES de handleiding! CSV name == ordernummer!!, click OK om door te gaan.')
+
 else:
     fname = sys.argv[1]
 
@@ -39,7 +41,7 @@ else:
     print(pad)
     print(pad.stem)
     print(pad.parent)
-
+    lokatie_om_files_te_plaatsen = pad.parent
     df = pd.read_csv(fname, ";")
     print(df.head())
 
@@ -54,6 +56,7 @@ else:
     mes = 4
     aantal_banen = 4 # int(input("aantal_banen: >")) ##tijdelijk
     aantal_per_lijst = mes
+    aantal_vdps = 1
     aantal = file_in.aantal.astype(int)
     totaal = aantal.sum()
     print(totaal)
@@ -65,10 +68,35 @@ else:
 
     stans_tussen = 1  # normaal waarde = 1 , geursamples is 30
 
+    oap = overaantalpercentage = 1  # 1.02 = 2% overlevering
+    ee = 5
+
     print(f'totaal van lijst is {totaal} en het gemiddelde over {aantal_banen} banen is {opb}')
 
     benamingen = [f'tmp{naam}.csv' for naam in range(1, aantal_banen + 1)]
     print(benamingen)
+
+    df_sum = file_in[["omschrijving_sluit", "sluit_barcode", "aantal", "beeld"]]
+
+    lijst_met_alle_variabelen = [totaal,
+                                 aantal_vdps,
+                                 aantal_banen,
+                                 ongeveer_per_baan,
+                                 afwijking,
+                                 mes,
+                                 row,
+                                 stans_tussen,
+                                 ee,
+                                 inloop,
+                                 Etiketten_Y,
+                                 df_sum,
+                                 data_uit_vdp,
+                                 pad
+
+                                 ]
+
+    summary_tekst_file(ordernummer, lokatie_om_files_te_plaatsen, *lijst_met_alle_variabelen)
+
 
     a = 0
 
@@ -311,3 +339,5 @@ else:
 
     for file_pad in cleaning_paden_met_Dir_lijst:
         file_pad.rmdir()
+
+    cleaner(wdir)
