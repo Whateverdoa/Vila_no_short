@@ -87,6 +87,10 @@ def read_out_4(lissst, ordernum):
                 "beeld_2": "stans.pdf",
                 "beeld_3": "stans.pdf",
                 "beeld_4": "stans.pdf",
+                "barcode_1": "1234565",
+                "barcode_2": "1234565",
+                "barcode_3": "1234565",
+                "barcode_4": "1234565"
             },
             inplace=True,
         )
@@ -112,14 +116,14 @@ def wikkel_4_baans_tc(input_vdp_lijst, padth, data_uit_vdp, inloop):
             target.writelines(readline[1:data_uit_vdp])
 
             target.writelines(
-                "0;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf\n"
+                "0;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf\n"
                 * (inloop - data_uit_vdp)
             )  # inloop
 
             target.writelines(readline[1:])  # bestand
 
             target.writelines(
-                "0;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf\n"
+                "0;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf\n"
                 * (inloop - 10)
             )  # uitloop
 
@@ -188,6 +192,13 @@ def read_out_6(lissst, ordernum):
                 "beeld_4": "stans.pdf",
                 "beeld_5": "stans.pdf",
                 "beeld_6": "stans.pdf",
+                "barcode_1": "1234565",
+                "barcode_2": "1234565",
+                "barcode_3": "1234565",
+                "barcode_4": "1234565",
+                "barcode_5": "1234565",
+                "barcode_6": "1234565",
+
             },
             inplace=True,
         )
@@ -218,14 +229,14 @@ def wikkel_6_baans_tc(input_vdp_lijst, padth, data_uit_vdp, inloop, mes):
             target.writelines(readline[1:data_uit_vdp])
 
             target.writelines(
-                "0;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf\n"
+                "0;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf\n"
                 * (inloop - data_uit_vdp)
             )  # inloop
 
             target.writelines(readline[1:])  # bestand
 
             target.writelines(
-                "0;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf;;;;stans.pdf\n" * (inloop - 10)
+                "0;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf;;1234565;;stans.pdf\n" * (inloop - 10)
             )  # uitloop
 
             target.writelines(readline[1:10])

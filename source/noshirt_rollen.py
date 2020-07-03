@@ -53,8 +53,8 @@ else:
     ordernummer = pad.stem
 
     file_in.tail()
-    mes = 4
-    aantal_banen = 4 # int(input("aantal_banen: >")) ##tijdelijk
+    mes = 6
+    aantal_banen = 6 # int(input("aantal_banen: >")) ##tijdelijk
     aantal_per_lijst = mes
     aantal_vdps = 1
     aantal = file_in.aantal.astype(int)
@@ -64,7 +64,7 @@ else:
     print(row)
     opb = ongeveer_per_baan = (totaal // aantal_banen)
     print(f'aantal rollen= {row}')
-    afwijking = 0  # mag niet kleiner zijn dan kleinste rol
+    afwijking = -1000  # mag niet kleiner zijn dan kleinste rol
 
     stans_tussen = 1  # normaal waarde = 1 , geursamples is 30
 
@@ -183,15 +183,15 @@ else:
 
         def print_4kols(omschrijving_sluit_1, sluit_barcode_1, aantal, beeld):
             "sluit barcode is een ean8 hier, handiger is mischien weglaten en in eps template aanpassen"
-            print(f";{int(1234567)};;stans.pdf\n" * stans_tussen, end="", file=fn)
+            print(f";{sluit_barcode_1};;stans.pdf\n" * stans_tussen, end="", file=fn)
             print(f"{omschrijving_sluit_1};{sluit_barcode_1};{aantal} etiketten;leeg.pdf\n", end="", file=fn)
-            print(f";{int(1234567)};;stans.pdf\n" * stans_tussen, end="", file=fn)
+            print(f";{sluit_barcode_1};;stans.pdf\n" * stans_tussen, end="", file=fn)
 
-            print(f";{int(1234567)};;{beeld}" * int(aantal * oap + ee), end="", file=fn)
+            print(f";{sluit_barcode_1};;{beeld}" * int(aantal * oap + ee), end="", file=fn)
             # print(f"{colorcode}, {int(aantal * oap)};leeg.pdf\n", end="", file=fn)
-            print(f";{int(1234567)};;stans.pdf\n" * stans_tussen, end="", file=fn)
+            print(f";{sluit_barcode_1};;stans.pdf\n" * stans_tussen, end="", file=fn)
             print(f"{omschrijving_sluit_1};{sluit_barcode_1};{aantal} etiketten;leeg.pdf\n", end="", file=fn)
-            print(f";{int(1234567)};;stans.pdf\n" * stans_tussen, end="", file=fn)
+            print(f";{sluit_barcode_1};;stans.pdf\n" * stans_tussen, end="", file=fn)
 
 
         df = trespa_lijst[["omschrijving_sluit", "sluit_barcode", "aantal", "beeld"]]
